@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Personal Page</title>
+
+  <!-- 字体 -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --text: #2e2e2e;
+      --muted: #777;
+    }
+    * { box-sizing: border-box; }
+  body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(170, 200, 255, 0.35), transparent 40%),
+    radial-gradient(circle at 80% 20%, rgba(255, 190, 220, 0.35), transparent 40%),
+    radial-gradient(circle at 50% 80%, rgba(200, 255, 220, 0.35), transparent 40%);
+  filter: blur(60px);
+  animation: floatLights 20s ease-in-out infinite;
+  z-index: -1;
+}
+@keyframes floatLights {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-40px); }
+  100% { transform: translateY(0px); }
+}
+    header {
+      text-align: center;
+      padding: 70px 20px 40px;
+    }
+
+    /* 头像 */
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid rgba(255,255,255,0.9);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.4rem;
+      background: linear-gradient(135deg, #9aa7ff, #ffbccb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      margin-top: 10px;
+      font-size: 1.05rem;
+      color: var(--muted);
+    }
+
+    /* 主体区域 */
+    main {
+      max-width: 1100px;
+      margin: 60px auto 120px;
+      position: relative;
+      height: 900px;
+    }
+
+    /* 圆形信息块 */
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      padding: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+      animation: float 7s ease-in-out infinite;
+      transition: transform 0.4s ease cubic-bezier(0.22,1,0.16,1);
+    }
+
+    .bubble:hover {
+      transform: translateY(-200px) scale(10);
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+      100% { transform: translateY(0); }
+    }
+
+    .bubble h2 {
+      margin-top: 0;
+      font-weight: 500;
+    }
+
+    .editable {
+      outline: none;
+      cursor: text;
+    }
+
+    /* 不同淡色渐变 */
+    .b1 { background: linear-gradient(135deg, rgba(255, 255, 255, 0.45), rgba(124, 183, 255, 0.45)); }
+    .b2 { background: linear-gradient(135deg, rgba(255, 255, 255, 0.45), rgba(255, 123, 172, 0.45)); }
+    .b3 { background: linear-gradient(135deg, rgba(255, 134, 98, 0.45), rgba(255, 255, 255, 0.45)); }
+    .b4 { background: linear-gradient(135deg, rgba(112, 255, 200, 0.45), rgba(255, 255, 255, 0.45)); }
+    .b5 {background: linear-gradient(135deg, rgba(123, 132, 125, 0.45), rgba(255, 255, 255, 0.45)); }
+.b6 {
+  background: linear-gradient(135deg, rgba(107, 255, 233, 0.45), rgba(255, 255, 255, 0.45)); }
+.b7 {
+  background: linear-gradient(135deg, rgba(160, 151, 255, 0.45), rgba(255, 255, 255, 0.45)); }
+.b8 {
+  background: linear-gradient(135deg, rgba(255, 220, 211, 0.45), rgba(255, 163, 65, 0.45)); }
+.b9 {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.45), rgba(255, 142, 166, 0.45)); }
+.b10 {
+  background: linear-gradient(135deg, rgba(255, 121, 152, 0.45), rgba(248,215,222,0.45)); }
+.b11 {
+  background: linear-gradient(135deg, rgba(255,213,154,0.45), rgba(255, 190, 134, 0.45)); }
+    footer {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+      padding-bottom: 40px;
+    }
+    /* 弹窗样式 */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+    .modal.show {
+      display: flex;
+    }
+    .modal-content {
+      background: linear-gradient(135deg, #ffffff, #f3f4ff);
+      border-radius: 28px;
+      padding: 36px 40px;
+      max-width: 420px;
+      text-align: center;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+      animation: pop 0.35s ease;
+    }
+
+    .modal-content h3 {
+      margin-top: 0;
+      font-weight: 600;
+    }
+
+    .modal-content button {
+      margin-top: 24px;
+      border: none;
+      padding: 8px 22px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #9aa7ff, #ffbccb);
+      color: #fff;
+      cursor: pointer;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <img 
+    src="https://res.cloudinary.com/dfwoxvlxs/image/upload/Avatar_lolzis.jpg" 
+    alt="我的头像" 
+    class="avatar"
+  />
+
+  <h1 >黄恩多Gloria</h1>
+  <div class="subtitle" >
+  人生箴言：“我与我周旋久，宁作我”。
+  </div>
+</header>
+
+<main>
+  <div class="bubble b1" onclick="openModal('性格 Personality👩🏻', '温柔 · 热情 · 细腻 · 有同理心')" style="top: -2px; left: 60px; width: 280px; height: 280px;">
+    <div>
+      <h2>性格 Personality👩🏻</h2>
+      <p >点击圆圈查看～👀</p>
+    </div>
+  </div>
+
+  <div class="bubble b2" onclick="openModal('MBTI👤', 'INFJ· 提倡者😁')" style="top: 80px; left: 420px; width: 260px; height: 260px;">
+    <div>
+      <h2>MBTI👤</h2>
+      <p >点击圆圈查看～👀</p>
+    </div>
+  </div>
+
+  <div class="bubble b3" onclick="openModal('专业方向 Major👩🏻‍🎓', '传媒· 文化研究 · 全球传播')" style="top: 290px; left: 250px; width: 260px; height: 260px;">
+    <div>
+      <h2>专业方向 Major👩🏻‍🎓</h2>
+      <p >点击圆圈查看～👀</p>
+    </div>
+  </div>
+
+  <div class="bubble b4" onclick="openModal('学习经历 Learning Experience📚', '小学：温州市实验小学 初中：温州市实验中学 高中：浙江省瑞安中学')" style="top: 10px; left: 720px; width: 270px; height: 270px;">
+    <div>
+      <h2>学习经历 Learning Experience📚</h2>
+      <p >点击圆圈查看～👀</p>
+    </div>
+  </div>
+  <div
+  class="bubble b5"
+  onclick="openModal('所在城市 Location🏙️', '浙江·温州')"
+  style="top: 300px; left: 700px; width: 220px; height: 220px;"
+>
+  <div>
+    <h2>所在城市 Location🏙️</h2>
+    <p>点击圆圈查看～👀</p>
+  </div>
+</div>
+<div
+  class="bubble b6"
+  onclick="openModal('联系方式 Contact📬📞', '邮箱：huangenduo.razx@outlook.com')"
+  style="top: 490px; left: 80px; width: 220px; height: 220px;"
+>
+  <div>
+    <h2>联系方式 Contact📬📞</h2>
+    <p>点击圆圈查看～👀</p>
+  </div>
+</div>
+<div
+  class="bubble b7"
+  onclick="openModal('爱好 Hobbies💕', '摄影📸·剪辑💻·阅读📖·听音乐🎶')"
+  style="top: 440px; left: 500px; width: 240px; height: 240px;"
+>
+  <div>
+    <h2>爱好 Hobbies💕</h2>
+    <p>点击圆圈查看～👀</p>
+  </div>
+</div>
+<div
+  class="bubble b8"
+  onclick="openModal('规划 Plan✨', '在香港读完本科➕研究生')"
+  style="top: 190px; left: 950px; width: 270px; height: 270px;"
+>
+  <div>
+    <h2>规划 Plan✨</h2>
+    <p>点击圆圈查看～👀</p>
+  </div>
+</div>
+<div
+  class="bubble b9"
+  onclick="openModal('语言 Languages🌍', '中文（母语）·英语（较流利）·韩语（会一点点🤏）·西班牙语（会一点点🤏）')"
+  style="top: 520px; left: 820px; width: 260px; height: 260px;"
+>
+  <div>
+    <h2>语言 Languages🌍</h2>
+    <p>点击圆圈查看～👀</p>
+  </div>
+</div>
+<div
+  class="bubble b10"
+  onclick="openModal('最喜欢的电影 Favorite movies🎬', 'La La Land（爱乐之城）')"
+  style="top: 620px; left:290px; width: 230px; height: 230px;"
+>
+  <div>
+    <h2>最喜欢的电影 Favorite movies🎬</h2>
+    <p>点击圆圈查看～👀</p>
+  </div>
+</div>
+<div
+  class="bubble b11"
+  onclick="openModal('最喜欢的歌手 Favorite singer🎤', 'G.E.M鄧紫棋')"
+  style="top: 290px; left: -70px; width: 240px; height: 240px;"
+>
+  <div>
+    <h2>最喜欢的歌手 Favorite singer🎤</h2>
+    <p>点击圆圈查看～👀</p>
+  </div>
+</div>
+
+
+  <!-- 详细信息弹窗 -->
+  <div id="modal" class="modal" onclick="closeModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <h3 id="modal-title"></h3>
+      <p id="modal-body"></p>
+      <button onclick="closeModal()">关闭</button>
+    </div>
+  </div>
+</main>
+
+<footer>
+  © 2026 Your Name · Personal Page
+</footer>
+
+
+
+<script>
+  function openModal(title, body) {
+    document.getElementById('modal-title').innerText = title;
+    document.getElementById('modal-body').innerText = body;
+    document.getElementById('modal').classList.add('show');
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('show');
+  }
+</script>
+</body>
+</html>
